@@ -13,6 +13,11 @@
 
     class ClientTest extends PHPUnit_Framework_TestCase
     {
+        protected function tearDown()
+        {
+            Client::deleteAll();
+        }
+
         function testGetClientName()
         {
             //Arrange
@@ -73,5 +78,72 @@
             $this->assertEquals('333.333.3333', $result);
         }
 
+        function testSave()
+        {
+            //Arrange
+            $client_name = 'Julie';
+            $phone_number = '555.555.5555';
+            $test_client = new Client($client_name, $phone_number);
+
+            //Act
+            $executed = $test_client->save();
+
+            //Assert
+            $this->assertTrue($executed, 'The client was not successfully saved to the database');
+        }
+
+        function testGetId()
+        {
+            //Arrange
+            $client_name = 'Julie';
+            $phone_number = '555.555.5555';
+            $test_client = new Client($client_name, $phone_number);
+            $executed = $test_client->save();
+
+            //Act
+            $result = $test_client->getId();
+
+            //Assert
+            $this->assertEquals(true, is_numeric($result));
+        }
+
+        function testGetAll()
+        {
+            //Arrange
+            $client_name = 'Becky';
+            $phone_number = '555.555.5555';
+            $client_name_2 = 'Alicia';
+            $phone_number_2 = '333.333.3333';
+            $test_client = new Client($client_name, $phone_number);
+            $test_client->save();
+            $test_client_2 = new Client($client_name_2, $phone_number_2);
+            $test_client_2->save();
+
+            //Act
+            $result = Client::getAll();
+
+            //Assert
+            $this->assertEquals([$test_client, $test_client_2], $result);
+        }
+
+        function testDeleteAll()
+        {
+            //Arrange
+            $client_name = 'Becky';
+            $phone_number = '555.555.5555';
+            $client_name_2 = 'Alicia';
+            $phone_number_2 = '333.333.3333';
+            $test_client = new Client($client_name, $phone_number);
+            $test_client->save();
+            $test_client_2 = new Client($client_name_2, $phone_number_2);
+            $test_client_2->save();
+
+            //Act
+            Client::deleteAll();
+
+            //Assert
+            $result = Client::getAll();
+            $this->assertEquals([], $result);
+        }
     }
 ?>
