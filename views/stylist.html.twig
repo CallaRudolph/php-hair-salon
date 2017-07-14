@@ -12,12 +12,12 @@
                     <p>Here are {{ stylist.getName }}'s clients:</p>
                     {% for client in clients %}
                     <ul>
-                        <li>{{ client.getClientName }}</li>
+                        <li><a href="/clients/{{ client.getId }}/edit">{{ client.getClientName }}</a></li>
                         <ul class='list-unstyled'>
                           <li>Phone#: {{ client.getPhoneNumber }}</li>
                         </ul>
-                        <br>
                     </ul>
+                    <br>
                     {% endfor %}
                     <form action='/delete_client' method='post'>
                         <button type='submit' class='btn-danger'>Selectively remove all clients for {{ stylist.getName }}</button>
