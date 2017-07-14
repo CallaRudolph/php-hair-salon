@@ -55,7 +55,44 @@
             if ($executed) {
                 return true;
             } else {
-                return false; 
+                return false;
+            }
+        }
+
+        static function find($search_id)
+        {
+            $found_stylist = null;
+            $returned_stylists = $GLOBALS['DB']->prepare("SELECT * FROM stylists WHERE id = :id");
+            $returned_stylists->bindParam(':id', $search_id, PDO::PARAM_STR);
+            $returned_stylists->execute();
+            foreach($returned_stylists as $stylist) {
+                $name = $stylist['name'];
+                $id = $stylist['id'];
+                if ($id == $search_id) {
+                    $found_stylist = new Stylist($name, $id);
+                }
+            }
+            return $found_stylist;
+        }
+
+        function update($new_name)
+        {
+            $executed = $GLOBALS['DB']->exec("UPDATE stylists SET name = '{$new_name}' WHERE id = {$this->getId()};");
+            if ($executed) {
+                $this->setName($new_name);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function delete()
+        {
+            $executed = $GLOBALS['DB']->exec("DELETE FROM stylists WHERE id = {$this->getId()};");
+            if ($executed) {
+                return true;
+            } else {
+                return false;
             }
         }
     }
