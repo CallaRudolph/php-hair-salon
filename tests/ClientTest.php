@@ -5,6 +5,7 @@
     */
 
     require_once 'src/Client.php';
+    require_once 'src/Stylist.php';
 
     $server = 'mysql:host=localhost:8889;dbname=hair_salon_test';
     $username = 'root';
@@ -16,14 +17,20 @@
         protected function tearDown()
         {
             Client::deleteAll();
+            Stylist::deleteAll();
         }
 
         function testGetClientName()
         {
             //Arrange
+            $name = 'Becky';
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+
             $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $test_client = new Client($client_name, $phone_number);
+            $stylist_id = $test_stylist->getId();
+            $test_client = new Client($client_name, $phone_number, $stylist_id);
 
             //Act
             $result = $test_client->getClientName();
@@ -35,9 +42,15 @@
         function testSetClientName()
         {
             //Arrange
+            $name = 'Becky';
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+
             $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $test_client = new Client($client_name, $phone_number);
+            $stylist_id = $test_stylist->getId();
+            $test_client = new Client($client_name, $phone_number, $stylist_id);
+
             $new_client_name = 'Felicia';
 
             //Act
@@ -51,9 +64,14 @@
         function testGetPhoneNumber()
         {
             //Arrange
+            $name = 'Becky';
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+
             $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $test_client = new Client($client_name, $phone_number);
+            $stylist_id = $test_stylist->getId();
+            $test_client = new Client($client_name, $phone_number, $stylist_id);
 
             //Act
             $result = $test_client->getPhoneNumber();
@@ -65,9 +83,15 @@
         function testSetPhoneNumber()
         {
             //Arrange
+            $name = 'Becky';
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+
             $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $test_client = new Client($client_name, $phone_number);
+            $stylist_id = $test_stylist->getId();
+            $test_client = new Client($client_name, $phone_number, $stylist_id);
+
             $new_phone_number = '333.333.3333';
 
             //Act
@@ -81,9 +105,14 @@
         function testSave()
         {
             //Arrange
+            $name = 'Becky';
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+
             $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $test_client = new Client($client_name, $phone_number);
+            $stylist_id = $test_stylist->getId();
+            $test_client = new Client($client_name, $phone_number, $stylist_id);
 
             //Act
             $executed = $test_client->save();
@@ -95,9 +124,14 @@
         function testGetId()
         {
             //Arrange
+            $name = 'Becky';
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+
             $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $test_client = new Client($client_name, $phone_number);
+            $stylist_id = $test_stylist->getId();
+            $test_client = new Client($client_name, $phone_number, $stylist_id);
             $executed = $test_client->save();
 
             //Act
@@ -107,17 +141,42 @@
             $this->assertEquals(true, is_numeric($result));
         }
 
+        function testGetStylistId()
+        {
+            //Arrange
+            $name = 'Becky';
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+
+            $client_name = 'Julie';
+            $phone_number = '555.555.5555';
+            $stylist_id = $test_stylist->getId();
+            $test_client = new Client($client_name, $phone_number, $stylist_id);
+            $test_client->save();
+
+            //Act
+            $result = $test_client->getStylistId();
+
+            //Assert
+            $this->assertEquals($stylist_id, $result);
+        }
+
         function testGetAll()
         {
             //Arrange
+            $name = 'Becky';
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+            $stylist_id = $test_stylist->getId();
+
             $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $test_client = new Client($client_name, $phone_number);
+            $test_client = new Client($client_name, $phone_number, $stylist_id);
             $test_client->save();
 
             $client_name_2 = 'Felicia';
             $phone_number_2 = '333.333.3333';
-            $test_client_2 = new Client($client_name_2, $phone_number_2);
+            $test_client_2 = new Client($client_name_2, $phone_number_2, $stylist_id);
             $test_client_2->save();
 
             //Act
@@ -130,14 +189,19 @@
         function testDeleteAll()
         {
             //Arrange
+            $name = 'Becky';
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+            $stylist_id = $test_stylist->getId();
+
             $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $test_client = new Client($client_name, $phone_number);
+            $test_client = new Client($client_name, $phone_number, $stylist_id);
             $test_client->save();
 
             $client_name_2 = 'Felicia';
             $phone_number_2 = '333.333.3333';
-            $test_client_2 = new Client($client_name_2, $phone_number_2);
+            $test_client_2 = new Client($client_name_2, $phone_number_2, $stylist_id);
             $test_client_2->save();
 
             //Act
@@ -151,14 +215,19 @@
         function testFind()
         {
             //Arrange
+            $name = 'Becky';
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+            $stylist_id = $test_stylist->getId();
+
             $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $test_client = new Client($client_name, $phone_number);
+            $test_client = new Client($client_name, $phone_number, $stylist_id);
             $test_client->save();
 
             $client_name_2 = 'Felicia';
             $phone_number_2 = '333.333.3333';
-            $test_client_2 = new Client($client_name_2, $phone_number_2);
+            $test_client_2 = new Client($client_name_2, $phone_number_2, $stylist_id);
             $test_client_2->save();
 
             //Act
@@ -171,9 +240,14 @@
         function testUpdateName()
         {
             //Arrange
+            $name = 'Becky';
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+            $stylist_id = $test_stylist->getId();
+
             $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $test_client = new Client($client_name, $phone_number);
+            $test_client = new Client($client_name, $phone_number, $stylist_id);
             $test_client->save();
 
             $new_client_name = 'Felicia';
@@ -188,9 +262,14 @@
         function testUpdatePhoneNumber()
         {
             //Arrange
+            $name = 'Becky';
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+            $stylist_id = $test_stylist->getId();
+
             $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $test_client = new Client($client_name, $phone_number);
+            $test_client = new Client($client_name, $phone_number, $stylist_id);
             $test_client->save();
 
             $new_phone_number = '333.333.3333';
@@ -205,14 +284,19 @@
         function testDelete()
         {
             //Arrange
+            $name = 'Becky';
+            $test_stylist = new Stylist($name);
+            $test_stylist->save();
+            $stylist_id = $test_stylist->getId();
+
             $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $test_client = new Client($client_name, $phone_number);
+            $test_client = new Client($client_name, $phone_number, $stylist_id);
             $test_client->save();
 
             $client_name_2 = 'Felicia';
             $phone_number_2 = '333.333.3333';
-            $test_client_2 = new Client($client_name_2, $phone_number_2);
+            $test_client_2 = new Client($client_name_2, $phone_number_2, $stylist_id);
             $test_client_2->save();
 
             //Act

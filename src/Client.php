@@ -3,12 +3,14 @@
     {
         private $client_name;
         private $phone_number;
+        private $stylist_id;
         private $id;
 
-        function __construct($client_name, $phone_number, $id = null)
+        function __construct($client_name, $phone_number, $stylist_id, $id = null)
         {
             $this->client_name = $client_name;
             $this->phone_number = $phone_number;
+            $this->stylist_id = $stylist_id;
             $this->id = $id;
         }
 
@@ -32,9 +34,14 @@
             return $this->phone_number;
         }
 
+        function getStylistId()
+        {
+            return $this->stylist_id;
+        }
+
         function save()
         {
-            $executed = $GLOBALS['DB']->exec("INSERT INTO clients (client_name, phone_number) VALUES ('{$this->getClientName()}', '{$this->getPhoneNumber()}')");
+            $executed = $GLOBALS['DB']->exec("INSERT INTO clients (client_name, phone_number, stylist_id) VALUES ('{$this->getClientName()}', '{$this->getPhoneNumber()}', {$this->getStylistId()})");
             if ($executed) {
                 $this->id = $GLOBALS['DB']->lastInsertId();
                 return true;
@@ -55,8 +62,9 @@
             foreach($returned_clients as $client) {
                 $client_name = $client['client_name'];
                 $phone_number = $client['phone_number'];
+                $stylist_id = $client['stylist_id'];
                 $client_id = $client['id'];
-                $new_client = new Client($client_name, $phone_number, $client_id);
+                $new_client = new Client($client_name, $phone_number, $stylist_id, $client_id);
                 array_push($clients, $new_client);
             }
             return $clients;
@@ -81,9 +89,10 @@
             foreach($returned_clients as $client) {
                 $client_name = $client['client_name'];
                 $phone_number = $client['phone_number'];
+                $stylist_id = $client['stylist_id'];
                 $client_id = $client['id'];
                 if ($client_id == $search_id) {
-                    $found_client = new Client($client_name, $phone_number, $client_id);
+                    $found_client = new Client($client_name, $phone_number, $stylist_id, $client_id);
                 }
             }
             return $found_client;
