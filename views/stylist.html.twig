@@ -6,22 +6,28 @@
       <body>
         <div class='container'>
             <h2>{{ stylist.getName }}</h2>
+            <p><a href="/stylists/{{ stylist.getId }}/edit">Edit this stylist</a></p>
             <div class='well'>
                 {% if clients is not empty %}
                     <p>Here are {{ stylist.getName }}'s clients:</p>
+                    {% for client in clients %}
                     <ul>
-                        {% for client in clients %}
-                            <li><a href="/clients/{{ client.getId }}/edit">{{ client.getClientName }}</a></li>
-                            <ul class='list-unstyled'>
-                              <li>Phone#: {{ client.getPhoneNumber }}</li>
-                            </ul>
-                        {% endfor %}
+                        <li>{{ client.getClientName }}</li>
+                        <ul class='list-unstyled'>
+                          <li>Phone#: {{ client.getPhoneNumber }}</li>
+                        </ul>
+                        <br>
+                    </ul>
+                    {% endfor %}
+                    <form action='/delete_client' method='post'>
+                        <button type='submit' class='btn-danger'>Selectively remove all clients for {{ stylist.getName }}</button>
+                    </form>
                 {% else %}
-                    <p> This stylist does not have any clients yet. No good!</p>
+                    <ul>
+                        <p> This stylist does not have any clients yet. No good!</p>
                     </ul>
                 {% endif %}
             </div>
-            <br>
             <div class='well'>
                 <h4>Add a Client for {{ stylist.getName }}</h4>
                 <form action='/clients' method='post'>
@@ -34,7 +40,6 @@
                     <button type='submit'>Add Client</button>
                 </form><br>
             </div>
-            <p><a href="/stylists/{{ stylist.getId }}/edit">Edit this stylist</a></p>
             <p><a href='/'>Go back to all stylists</a></p>
         </div>
       </body>
