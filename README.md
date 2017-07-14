@@ -1,12 +1,12 @@
 # _Hair Salon_
 
-#### _PHP Database Basics Independent Project, 7.14.2017_
+#### _PHP Database Basics Independent Project for Epicodus, 7.14.2017_
 
-#### By _**Calla Rudolph**_
+#### By _**Calla Rudolph (<mailto:callarudolph@gmail.com>)**_
 
 ## Description
 
-_This PHP database project allows a salon owner to manage individual stylists from a list. Each stylist can be edited or deleted. Every stylist can maintain a list of active clients. Each client can also be edited or deleted._
+_This PHP database project allows a salon owner to manage individual stylists from a list. Each stylist can be edited or deleted. Every stylist can maintain a list of active clients. Each client can also be edited or deleted. This database makes use of a foreign key between a stylist and clients, as there is a one-to-many relationship present._
 
 ## Setup Requirements
 
@@ -106,19 +106,12 @@ The following MySQL commands were entered when creating the database and during 
 
 ## Technologies Used
 
-* _PHP_
-* _HTML_
-* _Bootstrap CSS_
-* _Silex_
-* _Twig_
-* _Composer_
-* _MAMP_
-* _PHPUnit_
-* _MySQL_
-* _phpMyAdmin_
+PHP, HTML, Bootstrap CSS, Silex, Twig, Composer, MAMP, PHPUnit, MySQL, phpMyAdmin
 
 ### License
 
 Copyright &copy; 2017 Calla Rudolph
+
+_Please email me at the above address with any comments or improvements you have found!_
 
 This software is licensed under the MIT license.
