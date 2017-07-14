@@ -9,7 +9,8 @@
             <p><a href="/stylists/{{ stylist.getId }}/edit">Edit this stylist</a></p>
             <div class='well'>
                 {% if clients is not empty %}
-                    <p>Here are {{ stylist.getName }}'s clients:</p>
+                    <h4>Here are {{ stylist.getName }}'s clients:</h4>
+                    <p><em>Click on any client to edit or remove</em></p>
                     {% for client in clients %}
                     <ul>
                         <li><a href="/clients/{{ client.getId }}/edit">{{ client.getClientName }}</a></li>
@@ -20,7 +21,7 @@
                     <br>
                     {% endfor %}
                     <form action='/delete_client' method='post'>
-                        <button type='submit' class='btn-danger'>Selectively remove all clients for {{ stylist.getName }}</button>
+                        <button type='submit' class='btn-danger'>Remove all clients for {{ stylist.getName }}</button>
                     </form>
                 {% else %}
                     <ul>
