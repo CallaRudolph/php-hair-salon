@@ -24,7 +24,7 @@
         {
             //Arrange
             $name = 'Becky';
-            $test_stylist = new Stylist ($name);
+            $test_stylist = new Stylist($name);
 
             //Act
             $result = $test_stylist->getName();
