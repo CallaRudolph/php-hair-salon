@@ -71,6 +71,55 @@
                 return false;
             }
         }
+
+        static function find($search_id)
+        {
+            $found_client = null;
+            $returned_clients = $GLOBALS['DB']->prepare("SELECT * FROM clients WHERE id = :id");
+            $returned_clients->bindParam(':id', $search_id, PDO::PARAM_STR);
+            $returned_clients->execute();
+            foreach($returned_clients as $client) {
+                $client_name = $client['client_name'];
+                $phone_number = $client['phone_number'];
+                $client_id = $client['id'];
+                if ($client_id == $search_id) {
+                    $found_client = new Client($client_name, $phone_number, $client_id);
+                }
+            }
+            return $found_client;
+        }
+
+        function updateName($new_client_name)
+        {
+            $executed = $GLOBALS['DB']->exec("UPDATE clients SET client_name = '{$new_client_name}' WHERE id = {$this->getId()};");
+            if ($executed) {
+                $this->setClientName($new_client_name);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function updatePhoneNumber($new_phone_number)
+        {
+            $executed = $GLOBALS['DB']->exec("UPDATE clients SET phone_number = '{$new_phone_number}' WHERE id = {$this->getId()};");
+            if ($executed) {
+                $this->setPhoneNumber($new_phone_number);
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        function delete()
+        {
+            $executed = $GLOBALS['DB']->exec("DELETE FROM clients WHERE id = {$this->getId()};");
+            if ($executed) {
+                return true;
+            } else {
+                return false;
+            }
+        }
     }
 
 ?>

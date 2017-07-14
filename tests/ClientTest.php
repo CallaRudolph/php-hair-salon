@@ -110,12 +110,13 @@
         function testGetAll()
         {
             //Arrange
-            $client_name = 'Becky';
+            $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $client_name_2 = 'Alicia';
-            $phone_number_2 = '333.333.3333';
             $test_client = new Client($client_name, $phone_number);
             $test_client->save();
+
+            $client_name_2 = 'Felicia';
+            $phone_number_2 = '333.333.3333';
             $test_client_2 = new Client($client_name_2, $phone_number_2);
             $test_client_2->save();
 
@@ -129,12 +130,13 @@
         function testDeleteAll()
         {
             //Arrange
-            $client_name = 'Becky';
+            $client_name = 'Julie';
             $phone_number = '555.555.5555';
-            $client_name_2 = 'Alicia';
-            $phone_number_2 = '333.333.3333';
             $test_client = new Client($client_name, $phone_number);
             $test_client->save();
+
+            $client_name_2 = 'Felicia';
+            $phone_number_2 = '333.333.3333';
             $test_client_2 = new Client($client_name_2, $phone_number_2);
             $test_client_2->save();
 
@@ -144,6 +146,80 @@
             //Assert
             $result = Client::getAll();
             $this->assertEquals([], $result);
+        }
+
+        function testFind()
+        {
+            //Arrange
+            $client_name = 'Julie';
+            $phone_number = '555.555.5555';
+            $test_client = new Client($client_name, $phone_number);
+            $test_client->save();
+
+            $client_name_2 = 'Felicia';
+            $phone_number_2 = '333.333.3333';
+            $test_client_2 = new Client($client_name_2, $phone_number_2);
+            $test_client_2->save();
+
+            //Act
+            $result = Client::find($test_client->getId());
+
+            //Assert
+            $this->assertEquals($test_client, $result);
+        }
+
+        function testUpdateName()
+        {
+            //Arrange
+            $client_name = 'Julie';
+            $phone_number = '555.555.5555';
+            $test_client = new Client($client_name, $phone_number);
+            $test_client->save();
+
+            $new_client_name = 'Felicia';
+
+            //Act
+            $test_client->updateName($new_client_name);
+
+            //Assert
+            $this->assertEquals('Felicia', $test_client->getClientName());
+        }
+
+        function testUpdatePhoneNumber()
+        {
+            //Arrange
+            $client_name = 'Julie';
+            $phone_number = '555.555.5555';
+            $test_client = new Client($client_name, $phone_number);
+            $test_client->save();
+
+            $new_phone_number = '333.333.3333';
+
+            //Act
+            $test_client->updatePhoneNumber($new_phone_number);
+
+            //Assert
+            $this->assertEquals('333.333.3333', $test_client->getPhoneNumber());
+        }
+
+        function testDelete()
+        {
+            //Arrange
+            $client_name = 'Julie';
+            $phone_number = '555.555.5555';
+            $test_client = new Client($client_name, $phone_number);
+            $test_client->save();
+
+            $client_name_2 = 'Felicia';
+            $phone_number_2 = '333.333.3333';
+            $test_client_2 = new Client($client_name_2, $phone_number_2);
+            $test_client_2->save();
+
+            //Act
+            $test_client->delete();
+
+            //Assert
+            $this->assertEquals([$test_client_2], Client::getAll());
         }
     }
 ?>

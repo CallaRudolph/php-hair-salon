@@ -116,10 +116,10 @@
         {
             //Arrange
             $name = 'Becky';
-            $name_2 = 'Alicia';
             $test_stylist = new Stylist($name);
             $test_stylist->save();
 
+            $name_2 = 'Alicia';
             $test_stylist_2 = new Stylist($name_2);
             $test_stylist_2->save();
 
