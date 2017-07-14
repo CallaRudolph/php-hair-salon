@@ -6,14 +6,14 @@
       <body>
         <div class='container'>
             <h2>{{ stylist.getName }}</h2>
-            <p><a href="/stylists/{{ stylist.getId }}/edit">Edit this stylist</a></p>
+            <h4><em><a href='/stylists/{{ stylist.getId }}/edit'>Edit this stylist</a></em></h4>
             <div class='well'>
                 {% if clients is not empty %}
                     <h4>Here are {{ stylist.getName }}'s clients:</h4>
                     <p><em>Click on any client to edit or remove</em></p>
                     {% for client in clients %}
                     <ul>
-                        <li><a href="/clients/{{ client.getId }}/edit">{{ client.getClientName }}</a></li>
+                        <li><a href='/clients/{{ client.getId }}/edit'>{{ client.getClientName }}</a></li>
                         <ul class='list-unstyled'>
                           <li>Phone#: {{ client.getPhoneNumber }}</li>
                         </ul>
@@ -25,23 +25,23 @@
                     </form>
                 {% else %}
                     <ul>
-                        <p> This stylist does not have any clients yet. No good!</p>
+                        <p> {{ stylist.getName }} does not have any clients yet. No good, {{ stylist.getName }}!</p>
                     </ul>
                 {% endif %}
             </div>
             <div class='well'>
                 <h4>Add a Client for {{ stylist.getName }}</h4>
                 <form action='/clients' method='post'>
-                    <input id="stylist_id" name="stylist_id" type="hidden" value="{{ stylist.getId() }}">
+                    <input id='stylist_id' name='stylist_id' type='hidden' value='{{ stylist.getId() }}'>
                     <label for='client_name'>Client Name:</label>
-                    <input id='client_name' name='client_name' type='text'><br>
+                    <input id='client_name' name='client_name' type='text' placeholder='Client Name' required><br>
                     <label for='phone_number'>Client Phone Number:</label>
-                    <input id='phone_number' name='phone_number' type='text'><br><br>
+                    <input id='phone_number' name='phone_number' type='text' placeholder='Client phone number' required><br><br>
 
                     <button type='submit'>Add Client</button>
                 </form><br>
             </div>
-            <p><a href='/'>Go back to all stylists</a></p>
+            <h3><a href='/'>Go back to all stylists</a></h3>
         </div>
       </body>
 </html>

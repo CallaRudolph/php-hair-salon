@@ -6,27 +6,30 @@
     <body>
         <div class='container'>
             <h1>Hey Salon Owner Dani, you rock. Let's make it a great day.</h1><br>
-
-            {% if stylists is not empty %}
-                <p>Here are all of your fabulous stylists:</p>
-                <ul>
-                    {% for stylist in stylists %}
-                        <li><a href="/stylists/{{ stylist.getId }}">{{ stylist.getName }}</a></li>
-                    {% endfor %}
-                </ul>
-            {% else %}
-                <p>You don't have any stylists yet! You've gotta be nicer, Dani.</p>
-            {% endif %}
+            <div class='well'>
+                {% if stylists is not empty %}
+                    <p>Here are all of your fabulous stylists:</p>
+                    <ul>
+                        {% for stylist in stylists %}
+                            <li><a href='/stylists/{{ stylist.getId }}'>{{ stylist.getName }}</a></li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <p>You don't have any stylists yet! You've gotta be nicer, Dani.</p>
+                {% endif %}
+            </div>
             <br>
-            <form action="/" method="post">
-                <h4>Did you hire a new stylist?</h4>
-                <label for="name">What is the new stylist's name?:</label><br>
-                <input id="name" name="name" type="text"><br><br>
-                <button type="submit" class="btn-success">Make a new hire!</button>
-            </form>
-            <br>
-            <form action="/delete_stylists" method="post">
-                <button type="submit" class="btn-danger">Having a bad day? Fire everybody!</button>
+            <div class='well'>
+                <form action='/' method='post'>
+                    <h4>Did you hire a new stylist?!</h4>
+                    <label for='name'>What is the new stylist's name?</label><br>
+                    <input id='name' name='name' type='text' placeholder='Name goes here' required><br><br>
+                    <button type='submit' class='btn-info'>Make a new hire!</button>
+                </form>
+            </div>
+            <br><br>
+            <form action='/delete_stylists' method='post'>
+                <button type='submit' class='btn-danger'>Having a bad day? Fire everybody!</button>
             </form>
         </div>
     </body>
