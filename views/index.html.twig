@@ -1,0 +1,29 @@
+<html>
+    <head>
+        <link rel='stylesheet' href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css'>
+        <title>Dani's Salon</title>
+    </head>
+    <body>
+        <div class='container'>
+            <h1>Hey Dani, you rock. Let's make it a great day.</h1><br>
+
+            {% if stylists is not empty %}
+                <p>Here are all of your fabulous stylists:</p>
+                <ul>
+                    {% for stylist in stylists %}
+                        <li><a href="/stylists/{{ stylist.getId }}">{{ stylist.getName }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>You don't have any stylists yet! You've gotta be nicer, Dani.</p>
+            {% endif %}
+            <br>
+            <form action="/" method="post">
+                <h4>Did you hire a new stylist?</h4>
+                <label for="name">What is the new stylist's name?:</label><br>
+                <input id="name" name="name" type="text"><br><br>
+                <button type="submit">Make a new hire!</button>
+            </form>
+        </div>
+    </body>
+</html>
